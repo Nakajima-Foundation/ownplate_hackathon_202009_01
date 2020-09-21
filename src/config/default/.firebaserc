@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "production": "own-plate",
+    "staging": "ownplate-dev",
+    "eu" : "ownplate-eu",
+    "jp" : "ownplate-jp"
+  }
+}
