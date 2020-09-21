@@ -1,5 +1,5 @@
 <template>
-  <div style="width:200px; float: left; margin-left: 5px;">
+  <div style="width:300px; float: left; margin-left: 5px;">
     <!-- Item Card -->
     <div class="bg-surface r-8 d-low m-t-8 card p-l-16 p-r-16 p-t-16 p-b-16">
       <div v-if="image" class="card-image">
@@ -36,7 +36,7 @@
         <div class>
           <!-- Add Button -->
           <div @click.stop="pushCount" class="op-button-pill bg-primary-bg t-button">
-            <span>{{$t('sitemenu.add')}}</span>
+            <span class="addBtn">{{$t('sitemenu.add')}}</span>
           </div>
         </div>
       </div>
@@ -293,4 +293,20 @@ export default {
   -webkit-line-clamp: 3;
   overflow: hidden;
 }
+
+* {
+  display: block;
+}
+
+.addBtn {
+  text-align: center;
+  padding-top: 10px;
+}
+
+
+.material-icons {
+  text-align: center;
+  padding-top: 10px;
+}
+
 </style>
