@@ -3,6 +3,7 @@
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
   },
+<<<<<<< HEAD
   "functions": {
     "predeploy": [
       "cp dist/index.html functions/templates/index.html",
@@ -14,8 +15,10 @@
     ],
     "source": "functions"
   },
+=======
+>>>>>>> develop
   "hosting": {
-    "public": "dist",
+    "public": "public",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -23,32 +26,17 @@
     ],
     "rewrites": [
       {
-        "source": "/r/*",
-        "function": "api"
-      },
-      {
-        "source": "/r/*/menus/*",
-        "function": "api"
-      },
-      {
-        "source": "/1.0/**",
-        "function": "api"
-      },
-      {
-        "source": "/api/1.0/**",
-        "function": "api"
-      },
-      {
-        "source": "/sitemap.xml",
-        "function": "api"
-      },
-      {
         "source": "**",
         "destination": "/index.html"
       }
     ]
   },
-  "storage": {
-    "rules": "storage.rules"
+  "emulators": {
+    "firestore": {
+      "port": 8080
+    },
+    "hosting": {
+      "port": 5000
+    }
   }
 }
