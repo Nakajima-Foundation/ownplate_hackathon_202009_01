@@ -1,26 +1,16 @@
 <template>
-  <div style="width:300px; float: left; margin-left: 5px;">
+  <div>
     <!-- Item Card -->
-    <div class="bg-surface r-8 d-low m-t-8 card p-l-16 p-r-16 p-t-16 p-b-16">
-      <div v-if="image" class="card-image">
-        <figure class="image is-4by3">
-          <img
-            @click.stop="openImage()"
-            :src="image"
-            width="96"
-            height="96"
-            class="w-96 h-96 r-4 cover"
-          />
-        </figure>
-      </div>
-      <div class="card-content touchable cols" @click="toggleMenuFlag()">
-        <!-- Item Name -->
-        <div class="is-4 t-h6 c-text-black-high">{{ title }}</div>
+    <div class="bg-surface r-8 d-low m-t-8" :style="cardStyle">
+      <div class="touchable cols" @click="toggleMenuFlag()">
+        <div class="flex-1 p-l-16 p-r-16 p-t-16 p-b-16">
+          <!-- Item Name -->
+          <div class="t-h6 c-text-black-high">{{ title }}</div>
 
-        <!-- Price -->
-        <div class="t-body1 c-text-black-high m-t-8">
-          <Price :shopInfo="shopInfo" :menu="item" />
-        </div>
+          <!-- Price -->
+          <div class="t-body1 c-text-black-high m-t-8">
+            <Price :shopInfo="shopInfo" :menu="item" />
+          </div>
 
         <!-- Allergens -->
         <div
@@ -285,28 +275,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.is-ellipsis {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  overflow: hidden;
-}
-
-* {
-  display: block;
-}
-
-.addBtn {
-  text-align: center;
-  padding-top: 10px;
-}
-
-
-.material-icons {
-  text-align: center;
-  padding-top: 10px;
-}
-
-</style>
