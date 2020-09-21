@@ -4,13 +4,6 @@
     <div class="columns is-gapless">
       <!-- Left Gap -->
       <div class="column is-narrow w-24"></div>
-      <!-- Center Column -->
-      <div class="column">
-        <div class="m-l-24 m-r-24 m-t-24">
-          <!-- Title -->
-          <div class="t-h6 c-text-black-disabled m-t-24">{{$t("find.area")}}</div>
-        </div>
-      </div>
       <!-- Right Gap -->
       <div class="column is-narrow w-24"></div>
     </div>
@@ -19,23 +12,56 @@
     <div class="columns is-gapless">
       <!-- Left Gap -->
       <div class="column is-narrow w-24"></div>
-      <!-- Center Column -->
-      <div class="column">
+      <!-- Center Column 1 -->
+      <b-collapse class="column" animation="slide">
+        <!-- Title -->
+        <div
+          slot="trigger"
+          slot-scope="props"
+          role="button"
+          class="is-flex t-h6 c-text-black-disabled m-t-24 m-l-24"
+        >
+          <div>{{$t("find.area")}}</div>
+          <b-icon :icon="props.open ? 'menu-down' : 'menu-up'"></b-icon>
+        </div>
         <div class="m-l-24 m-r-16 m-t-16">
           <!-- Areas -->
           <div class="columns is-gapless is-multiline">
-            <area-item :name="$t('find.areaAll')" :id="'all'" />
+            <Genre :name="$t('find.areaAll')" :id="'all'" />
 
-            <!-- v-for="area in areas" -->
-            <area-item
-              v-for="area in areas"
-              :name="area.name"
-              :id="String(area.id)"
-              :key="area.id"
+            <!-- v-for="areas in areas" -->
+            <Genre v-for="area in areas" :name="area.name" :id="String(area.id)" :key="area.id" />
+          </div>
+        </div>
+      </b-collapse>
+
+      <!-- Center Column 2 -->
+      <b-collapse class="column" animation="slide">
+        <!-- Title -->
+        <div
+          slot="trigger"
+          slot-scope="props"
+          role="button"
+          class="is-flex t-h6 c-text-black-disabled m-t-24 m-l-24"
+        >
+          <div>{{$t("find.genre")}}</div>
+          <b-icon :icon="props.open ? 'menu-down' : 'menu-up'"></b-icon>
+        </div>
+        <div class="m-l-24 m-r-16 m-t-16">
+          <!-- Areas -->
+          <div class="columns is-gapless is-multiline">
+            <Genre :name="$t('find.genreAll')" :id="'all'" />
+
+            <!-- v-for="genre in genres" -->
+            <Genre
+              v-for="genre in genres"
+              :name="genre.name"
+              :id="String(genre.id)"
+              :key="genre.id"
             />
           </div>
         </div>
-      </div>
+      </b-collapse>
       <!-- Right Gap -->
       <div class="column is-narrow w-24"></div>
     </div>
@@ -81,11 +107,13 @@
 import { db } from "~/plugins/firebase.js";
 import { RestaurantHeader } from "~/plugins/header.js";
 import AreaItem from "~/app/user/Restaurants/AreaItem";
+import Genre from "~/app/user/Restaurants/Genre";
 import { ownPlateConfig } from "@/config/project";
 
 export default {
   components: {
-    AreaItem
+    AreaItem,
+    Genre
   },
   data() {
     return {
@@ -107,9 +135,26 @@ export default {
               { name: "広島県", id: 33 },
               { name: "長崎県", id: 41 }
             ]
-          : [{ name: "Washington", id: 46 }]
+          : [{ name: "Washington", id: 46 }],
+      genres:
+        ownPlateConfig.region == "JP"
+          ? [
+              { name: "カレー", id: 12 },
+              { name: "イタリアン", id: 9 },
+              { name: "中華料理", id: 10 },
+              { name: "インド料理", id: 39 },
+              { name: "肉", id: 17 },
+              { name: "魚", id: 18 },
+              { name: "日本料理", id: 26 },
+              { name: "寿司", id: 27 },
+              { name: "野菜", id: 33 }
+            ]
+          : [{ name: "Italian", id: 46 }]
     };
   },
+  // computed: {
+  //   searchedCategories(){//}
+  // },
   head() {
     const title = [
       this.$t("pageTitle.restaurantRoot"),

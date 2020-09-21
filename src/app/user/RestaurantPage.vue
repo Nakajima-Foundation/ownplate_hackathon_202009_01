@@ -25,72 +25,63 @@
         </div>
 
         <!-- Restaurant Body Area -->
-        <div class="columns is-gapless">
-          <!-- Left Gap -->
-          <div class="column is-narrow w-24"></div>
-
-          <!-- Left Column -->
-          <div class="column">
-            <!-- Restaurant Cover Photo -->
-            <div class="columns is-gapless">
-              <div class="column is-narrow w-24"></div>
-              <div class="column">
-                <div class="is-hidden-mobile h-24"></div>
-                <div class="bg-form h-192">
-                  <img :src="coverImage" class="h-192 w-full cover is-hidden-tablet" />
-                  <img :src="coverImage" class="h-192 w-full cover r-8 is-hidden-mobile" />
-                </div>
-              </div>
-              <div class="column is-narrow w-24"></div>
-            </div>
-
-            <!-- Restaurant Details -->
-            <div class="m-l-24 m-r-24">
-              <!-- Restaurant Profile Photo and Name -->
-              <shop-header :shopInfo="shopInfo"></shop-header>
-
-              <!-- Restaurant Descriptions -->
-              <div class="t-body1 c-text-black-medium m-t-8">{{ this.shopInfo.introduction }}</div>
-
-              <!-- Share Popup -->
-              <share-popup :shopInfo="shopInfo" class="align-center m-t-8"></share-popup>
-
-              <!-- Restaurant Info -->
-              <shop-info :shopInfo="shopInfo" :paymentInfo="paymentInfo"
-                         @noAvailableTime="noAvailableTime=$event"
-                         ></shop-info>
-            </div>
-          </div>
-
-          <!-- Right Column -->
-          <div class="column">
-            <div class="m-l-24 m-r-24">
-              <div class="m-t-24">
-                <!-- Menu Items -->
-                <template v-for="itemId in menuLists">
-                  <div v-if="itemsObj[itemId]" :key="itemId">
-                    <div
-                      class="t-h6 c-text-black-disabled m-t-24"
-                      v-if="itemsObj[itemId]._dataType === 'title'"
-                    >{{ itemsObj[itemId].name }}</div>
-                    <item-card
-                      v-if="itemsObj[itemId]._dataType === 'menu'"
-                      :item="itemsObj[itemId]"
-                      :count="orders[itemId] || 0"
-                      :optionPrev="optionsPrev[itemId]"
-                      :initialOpenMenuFlag="(orders[itemId] || 0) > 0"
-                      :shopInfo="shopInfo"
-                      :isOpen="menuId === itemId"
-                      @didCountChange="didCountChange($event)"
-                      @didOptionValuesChange="didOptionValuesChange($event)"
-                    ></item-card>
-                  </div>
-                </template>
+        <!-- Center Column 1 -->
+        <div class="column is-full">
+          <!-- Restaurant Cover Photo -->
+          <div class="columns is-gapless">
+            <div class="column">
+              <div class="bg-form h-192">
+                <img :src="coverImage" class="h-192 w-full cover is-hidden-tablet" />
+                <img :src="coverImage" class="h-192 w-full cover r-8 is-hidden-mobile" />
               </div>
             </div>
           </div>
-          <!-- Right Gap -->
-          <div class="column is-narrow w-24"></div>
+
+          <!-- Restaurant Details -->
+          <div class="m-l-24 m-r-24">
+            <!-- Restaurant Profile Photo and Name -->
+            <shop-header :shopInfo="shopInfo"></shop-header>
+
+            <!-- Restaurant Descriptions -->
+            <div class="t-body1 c-text-black-medium m-t-8">{{ this.shopInfo.introduction }}</div>
+
+            <!-- Share Popup -->
+            <share-popup :shopInfo="shopInfo" class="align-center m-t-8"></share-popup>
+
+            <!-- Restaurant Info -->
+            <shop-info
+              :shopInfo="shopInfo"
+              :paymentInfo="paymentInfo"
+              @noAvailableTime="noAvailableTime=$event"
+            ></shop-info>
+          </div>
+        </div>
+
+        <!-- Center Column 2 -->
+        <div class="column is-full">
+          <div class="m-l-24 m-r-24 m-t-24">
+            <!-- Menu Items -->
+            <template v-for="itemId in menuLists">
+              <div v-if="itemsObj[itemId]" :key="itemId">
+                <div
+                  class="t-h6 c-text-black-disabled m-t-24"
+                  style="width:100%; float: left;"
+                  v-if="itemsObj[itemId]._dataType === 'title'"
+                >{{ itemsObj[itemId].name }}</div>
+                <item-card
+                  v-if="itemsObj[itemId]._dataType === 'menu'"
+                  :item="itemsObj[itemId]"
+                  :count="orders[itemId] || 0"
+                  :optionPrev="optionsPrev[itemId]"
+                  :initialOpenMenuFlag="(orders[itemId] || 0) > 0"
+                  :shopInfo="shopInfo"
+                  :isOpen="menuId === itemId"
+                  @didCountChange="didCountChange($event)"
+                  @didOptionValuesChange="didOptionValuesChange($event)"
+                ></item-card>
+              </div>
+            </template>
+          </div>
         </div>
       </div>
 
@@ -167,9 +158,10 @@ export default {
       title:
         Object.keys(this.shopInfo).length == 0
           ? document.title
-          : [this.shopInfo.restaurantName || "", ownPlateConfig.restaurantPageTitle || this.defaultTitle].join(
-              " / "
-            )
+          : [
+              this.shopInfo.restaurantName || "",
+              ownPlateConfig.restaurantPageTitle || this.defaultTitle
+            ].join(" / ")
     };
   },
   data() {
@@ -193,7 +185,7 @@ export default {
       notFound: null,
 
       paymentInfo: {},
-      noAvailableTime: false,
+      noAvailableTime: false
     };
   },
   mounted() {
