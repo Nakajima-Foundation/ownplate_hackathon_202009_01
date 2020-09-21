@@ -22,12 +22,6 @@
           <Price :shopInfo="shopInfo" :menu="item" />
         </div>
 
-        <!-- Description -->
-        <div
-          v-if="description !== null"
-          class="t-body2 c-text-black-medium m-t-8 is-ellipsis"
-        >{{ description }}</div>
-
         <!-- Allergens -->
         <div
           v-if="allergens.length > 0"
@@ -52,6 +46,13 @@
           class="align-left"
           style="margin-left: -8px;"
         ></share-popup>
+
+        <!-- Description -->
+        <div
+          v-if="description !== null"
+          class="t-body2 c-text-black-medium m-t-8 is-ellipsis"
+        >{{ description }}</div>
+
 
         <!-- Item Options -->
         <div v-if="hasOptions" class="m-t-8">
