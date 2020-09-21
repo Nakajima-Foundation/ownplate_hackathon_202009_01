@@ -50,9 +50,7 @@
         <!-- Description -->
         <div
           v-if="description !== null"
-          class="t-body2 c-text-black-medium m-t-8 is-ellipsis"
-        >{{ description }}</div>
-
+          class="t-body2 c-text-black-medium m-t-8">{{ description }}</div>
         <!-- Item Options -->
         <div v-if="hasOptions" class="m-t-8">
           <div class="t-caption c-text-black-medium">{{$t('sitemenu.options')}}</div>
