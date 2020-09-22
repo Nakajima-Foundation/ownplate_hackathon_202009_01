@@ -1,36 +1,53 @@
 <template>
-  <div style="width:300px; float: left; margin-left: 5px;">
+  <div>
     <!-- Item Card -->
-    <div class="bg-surface r-8 d-low m-t-8 card p-l-16 p-r-16 p-t-16 p-b-16">
-      <div v-if="image" class="card-image">
-        <figure class="image is-4by3">
-          <img
-            @click.stop="openImage()"
-            :src="image"
-            width="96"
-            height="96"
-            class="w-96 h-96 r-4 cover"
-          />
-        </figure>
-      </div>
-      <div class="card-content touchable cols" @click="toggleMenuFlag()">
-        <!-- Item Name -->
-        <div class="is-4 t-h6 c-text-black-high">{{ title }}</div>
+    <div class="bg-surface r-8 d-low m-t-8" :style="cardStyle">
+      <div class="touchable cols" @click="toggleMenuFlag()">
+        <div class="flex-1 p-l-16 p-r-16 p-t-16 p-b-16">
+          <!-- Item Name -->
+          <div class="t-h6 c-text-black-high">{{ title }}</div>
 
-        <!-- Price -->
-        <div class="t-body1 c-text-black-high m-t-8">
-          <Price :shopInfo="shopInfo" :menu="item" />
+          <!-- Price -->
+          <div class="t-body1 c-text-black-high m-t-8">
+            <Price :shopInfo="shopInfo" :menu="item" />
+          </div>
+
+          <!-- Description -->
+          <div
+            v-if="description !== null"
+            class="t-body2 c-text-black-medium m-t-8"
+          >
+            {{ description }}
+          </div>
+
+          <!-- Allergens -->
+          <div
+            v-if="allergens.length > 0"
+            class="t-body2 c-text-black-medium m-t-8"
+          >
+            {{ allergensDescription }}
+          </div>
         </div>
+        <div class="p-r-16 p-t-16 p-b-16">
+          <div class="w-96 is-pulled-right">
+            <!-- Image -->
+            <div v-if="image" class="p-b-8">
+              <img
+                @click.stop="openImage()"
+                :src="image"
+                width="96"
+                height="96"
+                class="w-96 h-96 r-4 cover"
+              />
+            </div>
 
-        <!-- Allergens -->
-        <div
-          v-if="allergens.length > 0"
-          class="t-body2 c-text-black-medium m-t-8"
-        >{{ allergensDescription }}</div>
-        <div class>
-          <!-- Add Button -->
-          <div @click.stop="pushCount" class="op-button-pill bg-primary-bg t-button">
-            <span class="addBtn">{{$t('sitemenu.add')}}</span>
+            <!-- Add Button -->
+            <div
+              @click.stop="pushCount"
+              class="op-button-pill bg-primary-bg w-96 t-button"
+            >
+              <span>{{ $t("sitemenu.add") }}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -47,19 +64,16 @@
           style="margin-left: -8px;"
         ></share-popup>
 
-        <!-- Description -->
-        <div
-          v-if="description !== null"
-          class="t-body2 c-text-black-medium m-t-8 is-ellipsis"
-        >{{ description }}</div>
-
-
         <!-- Item Options -->
         <div v-if="hasOptions" class="m-t-8">
-          <div class="t-caption c-text-black-medium">{{$t('sitemenu.options')}}</div>
+          <div class="t-caption c-text-black-medium">
+            {{ $t("sitemenu.options") }}
+          </div>
           <div v-for="(option, index) in options" :key="index" class="m-t-8">
             <div v-if="option.length === 1" class="field">
-              <b-checkbox v-model="optionValues[index]">{{ displayOption(option[0]) }}</b-checkbox>
+              <b-checkbox v-model="optionValues[index]">{{
+                displayOption(option[0])
+              }}</b-checkbox>
             </div>
             <div v-else class="field">
               <b-radio
@@ -68,28 +82,39 @@
                 :name="`${item.id}${index}`"
                 :native-value="choice"
                 :key="index2"
-              >{{ displayOption(choice) }}</b-radio>
+                >{{ displayOption(choice) }}</b-radio
+              >
             </div>
           </div>
         </div>
 
+        <!-- Description -->
+        <div
+          v-if="description !== null"
+          class="t-body2 c-text-black-medium m-t-8"
+        >
+          {{ description }}
+        </div>
+
         <!-- Special instructions -->
-        <div v-if="false" class="m-t-16">
+        <!-- <div v-if="false" class="m-t-16">
           <div class="t-caption c-text-black-medium p-b-8">Special instructions</div>
           <b-input type="textarea" placeholder="Enter special instructions here."></b-input>
           <div
             class="t-caption c-text-black-medium m-l-16 m-r-16 m-t-8"
           >Please note that special requests may result in price adjustment after your order is processed.</div>
-        </div>
+        </div>-->
 
         <!-- Item Quantity -->
         <div class="m-t-16">
-          <div class="t-caption c-text-black-medium">{{$t('sitemenu.quantity')}}</div>
+          <div class="t-caption c-text-black-medium">
+            {{ $t("sitemenu.quantity") }}
+          </div>
           <div class="level is-mobile m-t-8">
             <div class="level-left">
               <div
                 @click="pullCount"
-                class="op-button-pill bg-status-red-bg w-96"
+                class="op-button-pill bg-status-red-bg"
                 :disabled="count === 0"
               >
                 <i class="material-icons c-status-red">remove</i>
@@ -97,7 +122,7 @@
             </div>
             <div class="t-h4 c-primary">{{ count }}</div>
             <div class="level-right">
-              <div @click="pushCount" class="op-button-pill bg-primary-bg w-96">
+              <div @click="pushCount" class="op-button-pill bg-primary-bg">
                 <i class="material-icons">add</i>
               </div>
             </div>
@@ -234,9 +259,9 @@ export default {
     hasOptions() {
       return this.options.length;
     },
-    cardStyle() {
-      return this.count > 0 ? { border: "solid 2px #0097a7" } : {};
-    },
+    // cardStyle() {
+    //   return this.count > 0 ? { border: "solid 2px #0097a7" } : {};
+    // },
     price() {
       return Number(this.item.price || 0);
     },
@@ -286,28 +311,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.is-ellipsis {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  overflow: hidden;
-}
-
-* {
-  display: block;
-}
-
-.addBtn {
-  text-align: center;
-  padding-top: 10px;
-}
-
-
-.material-icons {
-  text-align: center;
-  padding-top: 10px;
-}
-
-</style>
