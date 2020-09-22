@@ -1,5 +1,5 @@
 <template>
-  <div style="width:200px; float: left; margin-left: 5px;">
+  <div>
     <!-- Item Card -->
     <div class="bg-surface r-8 d-low m-t-8 card p-l-16 p-r-16 p-t-16 p-b-16">
       <div v-if="image" class="card-image">
@@ -17,11 +17,18 @@
         <!-- Item Name -->
         <div class="is-4 t-h6 c-text-black-high">{{ title }}</div>
 
-        <!-- Price -->
-        <div class="t-body1 c-text-black-high m-t-8">
-          <Price :shopInfo="shopInfo" :menu="item" />
-        </div>
+          <!-- Price -->
+          <div class="t-body1 c-text-black-high m-t-8">
+            <Price :shopInfo="shopInfo" :menu="item" />
+          </div>
 
+          <!-- Description -->
+          <div
+            v-if="description !== null"
+            class="t-body2 c-text-black-medium m-t-8"
+          >{{ description }}</div>
+
+<<<<<<< HEAD
         <!-- Allergens -->
         <div
           v-if="allergens.length > 0"
@@ -31,6 +38,31 @@
           <!-- Add Button -->
           <div @click.stop="pushCount" class="op-button-pill bg-primary-bg t-button">
             <span>{{$t('sitemenu.add')}}</span>
+=======
+          <!-- Allergens -->
+          <div
+            v-if="allergens.length > 0"
+            class="t-body2 c-text-black-medium m-t-8"
+          >{{ allergensDescription }}</div>
+        </div>
+        <div class="p-r-16 p-t-16 p-b-16">
+          <div class="w-96 is-pulled-right">
+            <!-- Image -->
+            <div v-if="image" class="p-b-8">
+              <img
+                @click.stop="openImage()"
+                :src="image"
+                width="96"
+                height="96"
+                class="w-96 h-96 r-4 cover"
+              />
+            </div>
+
+            <!-- Add Button -->
+            <div @click.stop="pushCount" class="op-button-pill bg-primary-bg w-96 t-button">
+              <span>{{$t('sitemenu.add')}}</span>
+            </div>
+>>>>>>> f1140a2a88168ac09c4a16cdc919888de682691b
           </div>
         </div>
       </div>
@@ -282,12 +314,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.is-ellipsis {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  overflow: hidden;
-}
-</style>
