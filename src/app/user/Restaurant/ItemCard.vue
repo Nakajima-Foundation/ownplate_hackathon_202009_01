@@ -1,11 +1,21 @@
 <template>
   <div>
     <!-- Item Card -->
-    <div class="bg-surface r-8 d-low m-t-8" :style="cardStyle">
-      <div class="touchable cols" @click="toggleMenuFlag()">
-        <div class="flex-1 p-l-16 p-r-16 p-t-16 p-b-16">
-          <!-- Item Name -->
-          <div class="t-h6 c-text-black-high">{{ title }}</div>
+    <div class="bg-surface r-8 d-low m-t-8 card p-l-16 p-r-16 p-t-16 p-b-16">
+      <div v-if="image" class="card-image">
+        <figure class="image is-4by3">
+          <img
+            @click.stop="openImage()"
+            :src="image"
+            width="96"
+            height="96"
+            class="w-96 h-96 r-4 cover"
+          />
+        </figure>
+      </div>
+      <div class="card-content touchable" @click="toggleMenuFlag()">
+        <!-- Item Name -->
+        <div class="is-4 t-h6 c-text-black-high">{{ title }}</div>
 
           <!-- Price -->
           <div class="t-body1 c-text-black-high m-t-8">
@@ -18,6 +28,17 @@
             class="t-body2 c-text-black-medium m-t-8"
           >{{ description }}</div>
 
+<<<<<<< HEAD
+        <!-- Allergens -->
+        <div
+          v-if="allergens.length > 0"
+          class="t-body2 c-text-black-medium m-t-8"
+        >{{ allergensDescription }}</div>
+        <div class>
+          <!-- Add Button -->
+          <div @click.stop="pushCount" class="op-button-pill bg-primary-bg t-button">
+            <span>{{$t('sitemenu.add')}}</span>
+=======
           <!-- Allergens -->
           <div
             v-if="allergens.length > 0"
@@ -41,6 +62,7 @@
             <div @click.stop="pushCount" class="op-button-pill bg-primary-bg w-96 t-button">
               <span>{{$t('sitemenu.add')}}</span>
             </div>
+>>>>>>> f1140a2a88168ac09c4a16cdc919888de682691b
           </div>
         </div>
       </div>
@@ -76,14 +98,17 @@
           </div>
         </div>
 
+        <!-- Description -->
+        <div v-if="description !== null" class="t-body2 c-text-black-medium m-t-8">{{ description }}</div>
+
         <!-- Special instructions -->
-        <div v-if="false" class="m-t-16">
+        <!-- <div v-if="false" class="m-t-16">
           <div class="t-caption c-text-black-medium p-b-8">Special instructions</div>
           <b-input type="textarea" placeholder="Enter special instructions here."></b-input>
           <div
             class="t-caption c-text-black-medium m-l-16 m-r-16 m-t-8"
           >Please note that special requests may result in price adjustment after your order is processed.</div>
-        </div>
+        </div>-->
 
         <!-- Item Quantity -->
         <div class="m-t-16">
@@ -92,7 +117,7 @@
             <div class="level-left">
               <div
                 @click="pullCount"
-                class="op-button-pill bg-status-red-bg w-96"
+                class="op-button-pill bg-status-red-bg"
                 :disabled="count === 0"
               >
                 <i class="material-icons c-status-red">remove</i>
@@ -100,7 +125,7 @@
             </div>
             <div class="t-h4 c-primary">{{ count }}</div>
             <div class="level-right">
-              <div @click="pushCount" class="op-button-pill bg-primary-bg w-96">
+              <div @click="pushCount" class="op-button-pill bg-primary-bg">
                 <i class="material-icons">add</i>
               </div>
             </div>
@@ -237,9 +262,9 @@ export default {
     hasOptions() {
       return this.options.length;
     },
-    cardStyle() {
-      return this.count > 0 ? { border: "solid 2px #0097a7" } : {};
-    },
+    // cardStyle() {
+    //   return this.count > 0 ? { border: "solid 2px #0097a7" } : {};
+    // },
     price() {
       return Number(this.item.price || 0);
     },
